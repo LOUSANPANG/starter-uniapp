@@ -1,0 +1,61 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+
+	"pages": [{
+			"path": "pages/index/index",
+			"name": "index",
+			"meta": { "loginAuth": true },
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"name": "login",
+			"style": {
+				"navigationBarTitleText": "login"
+			}
+		}
+	],
+
+	"subPackages": [{
+		"root": "pagesChild/status",
+		"pages": [{
+				"path": "pages/fail/fail",
+				"style": {
+					"navigationBarTitleText": "失败页"
+				}
+			},
+			{
+				"path": "pages/success/success",
+				"style": {
+					"navigationBarTitleText": "成功页"
+				}
+			},
+			{
+				"path": "pages/404/404",
+				"style": {
+					"navigationBarTitleText": "404"
+				}
+			}
+		]
+	}],
+
+	//ifdef MP-WEIXIN
+	"preloadRule": {
+		"pages/index/index": {
+			"packages": ["pagesChild/status"]
+		}
+	},
+	//endif
+
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "",
+		"backgroundColor": "#F8F8F8"
+	}
+}
