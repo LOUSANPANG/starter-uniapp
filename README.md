@@ -5,7 +5,7 @@ yarn add @vue/cli global
 vue create -p dcloudio/uni-preset-vue my-project
 
 选择自定义模版
-LOUSANPANG/HBuilderX-template
+LOUSANPANG/uniapp-template
 ```
 
 ## 一、基于 `uni-ui` 模版的二次封装

@@ -5,8 +5,6 @@
  * 第 3（patch） 位版本号的更新一般不需要依赖客户端更新，如：基础库v2.1.0 ~ v2.1.3 都运行在 v6.6.7 客户端，新版本发布会覆盖旧版本。
  */
 
-import customShowToast from './custom_toast.js'
-
 
 /**
  * 检测版本更新(检测版本中会有大概5s的延迟检测)
@@ -32,7 +30,7 @@ export const detectVersionUpdate = () => {
 	})
 
 	_UpdateManager.onUpdateFailed(function() {
-		customShowToast('新版本下载失败，请尝试清空缓存重新启动', 4000)
+		console.warn('新版本下载失败')
 	})
 	// #endif
 }

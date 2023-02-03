@@ -1,4 +1,4 @@
-// HACK 授权成功后的各个权限接口⛔️
+// 授权成功后的各个权限接口
 import customShowToast from './custom_toast.js'
 
 
@@ -60,12 +60,12 @@ const getScopePortRes = async (scope) => {
 		// 必须用户手动触发
 		const [err, res] = await uni.checkSession()
 		if (err) {
-			console.log('登录状态已过期❌：', [err, res])
+			console.log('登录状态已过期：', [err, res])
 			const [err, res] = await uni.getUserProfile({
 				desc: '授权您的信息保证系统正常使用'
 			})
 			if (err) {
-				console.log('用户信息获取失败❌：', err)
+				console.log('用户信息获取失败：', err)
 				customShowToast('用户信息获取失败，请重新授权。', 3000)
 			} else {
 				return res
@@ -77,7 +77,7 @@ const getScopePortRes = async (scope) => {
 				// #endif
 			})
 			if (!err) {
-				console.log('用户信息获取失败❌：', err)
+				console.log('用户信息获取失败：', err)
 				customShowToast('用户信息获取失败')
 			} else {
 				return res
@@ -86,7 +86,7 @@ const getScopePortRes = async (scope) => {
 	} else if (scope === 'userLocation') {
 		const [err, res] = await uni.getLocation()
 		if (err) {
-			console.log('地理位置获取失败❌：', err)
+			console.log('地理位置获取失败：', err)
 			customShowToast('地理位置获取失败')
 		} else {
 			return res
@@ -97,14 +97,14 @@ const getScopePortRes = async (scope) => {
 				return res
 			},
 			fail(err) {
-				console.log('后台定位开启失败❌：', err)
+				console.log('后台定位开启失败：', err)
 				customShowToast('后台定位开启失败')
 			}
 		})
 	} else if (scope === 'address') {
 		const [err, res] = await uni.chooseAddress()
 		if (err) {
-			console.log('通信地址获取失败❌：', err)
+			console.log('通信地址获取失败：', err)
 			customShowToast('通信地址获取失败')
 		} else {
 			return res
@@ -112,7 +112,7 @@ const getScopePortRes = async (scope) => {
 	} else if (scope === 'record') {
 		const [err, res] = await uni.chooseAddress()
 		if (err) {
-			console.log('录音功能开启失败❌：', err)
+			console.log('录音功能开启失败：', err)
 			customShowToast('录音功能开启失败')
 		} else {
 			return res
@@ -120,7 +120,7 @@ const getScopePortRes = async (scope) => {
 	} else if (scope === 'writePhotosAlbum') {
 		const [err, res] = await uni.saveImageToPhotosAlbum()
 		if (err) {
-			console.log('保存到相册开启失败❌：', err)
+			console.log('保存到相册开启失败：', err)
 			customShowToast('保存到相册开启失败')
 		} else {
 			return res
@@ -128,7 +128,7 @@ const getScopePortRes = async (scope) => {
 	} else if (scope === 'camera') {} else if (scope === 'invoice') {
 		const [err, res] = await uni.chooseInvoice()
 		if (err) {
-			console.log('获取发票失败❌：', err)
+			console.log('获取发票失败：', err)
 			customShowToast('获取发票失败')
 		} else {
 			return res
@@ -137,7 +137,7 @@ const getScopePortRes = async (scope) => {
 		// NOTE 前当前小程序必须关联一个公众号，且这个公众号是完成了微信认证的，才能调用 chooseInvoiceTitle。
 		const [err, res] = await uni.chooseInvoiceTitle()
 		if (err) {
-			console.log('获取发票抬头失败❌：', err)
+			console.log('获取发票抬头失败：', err)
 			customShowToast('获取发票抬头失败')
 		} else {
 			return res
@@ -149,7 +149,7 @@ const getScopePortRes = async (scope) => {
 				return res
 			},
 			fail(err) {
-				console.log('获取微信运动步数失败❌：', err)
+				console.log('获取微信运动步数失败：', err)
 				customShowToast('获取微信运动步数失败')
 			}
 		})
@@ -175,7 +175,6 @@ const customAuthorize = async (scope) => {
 	const scopeTitle = getScopeTitle(scope)
 
 	if (err) {
-		console.log('===授权请求失败[err, res]❌：', [err, res])
 		uni.showModal({
 			title: `授权${scopeTitle}权限`,
 			content: '您之前拒绝了授权，请手动开启授权，否则无法使用此功能。',
@@ -194,7 +193,6 @@ const customAuthorize = async (scope) => {
 			}
 		})
 	} else {
-		console.log('授权请求成功[err, res]✅：', [err, res])
 		return await getScopePortRes(scope)
 	}
 
