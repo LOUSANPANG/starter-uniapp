@@ -1,0 +1,78 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+
+
+	// 配置
+	// ifdef MP-WEIXIN
+	"lazyCodeLoading": "requiredComponents",
+	//endif
+
+	// 全局样式
+	"globalStyle": {
+		// ifdef MP-WEIXIN
+		"initialRenderingCache": "static",
+		//endif
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "",
+		"backgroundColor": "#F8F8F8"
+	},
+
+
+	// 页面
+	"pages": [{
+			"path": "pages/index/index",
+			"name": "index",
+			"meta": { "loginAuth": true },
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"name": "login",
+			"style": {
+				"navigationBarTitleText": "login"
+			}
+		}
+	],
+
+
+	// 分包
+	"subPackages": [
+		{
+			"root": "pagesChild/status",
+			"pages": [{
+					"path": "fail",
+					"style": {
+						"navigationBarTitleText": "失败页"
+					}
+				},
+				{
+					"path": "success",
+					"style": {
+						"navigationBarTitleText": "成功页"
+					}
+				},
+				{
+					"path": "404",
+					"style": {
+						"navigationBarTitleText": "404"
+					}
+				}
+			]
+		}
+	],
+
+	// 分包预下载
+	//ifdef MP-WEIXIN
+	"preloadRule": {
+		"pages/index/index": {
+			"packages": ["pagesChild/status"]
+		}
+	}
+	//endif
+}
