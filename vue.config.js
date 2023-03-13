@@ -4,7 +4,7 @@ module.exports = {
 			// 调试时允许内网穿透，让外网的人访问到本地调试的H5页面
 			config.devServer.disableHostCheck(true)
 		// #endif
-		
+
 		// 生产环境去除console代码
 		// config.optimization.minimizer('terser').tap((args) => {
 		// 	const compress = args[0].terserOptions.compress
@@ -15,7 +15,20 @@ module.exports = {
 		// 	]
 		// 	return args
 		// })
-		
+
+		// 解决H5跨域问题
+		config
+			.devServer
+			.proxy({
+				'/api': {
+					target: 'https://xxx.com',
+					changeOrigin: true,
+					pathRewrite: {
+						'^/api': ''
+					}
+				}
+			})
+
 		// 配置环境变量
 		config
 			.plugin('define')

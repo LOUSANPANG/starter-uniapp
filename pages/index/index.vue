@@ -1,11 +1,11 @@
 <template>
-	<view class="index">
+	<view class="">
 	</view>
 </template>
 
 <script>
 	export default {
-		name: 'Index',
+		name: '',
 
 		data() {
 			return {}
@@ -13,6 +13,5 @@
 	}
 </script>
 
-<style lang="scss">
-	@import "./index.scss";
+<style scoped lang="scss">
 </style>

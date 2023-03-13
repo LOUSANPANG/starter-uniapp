@@ -1,4 +1,5 @@
 const state = {
+	// 使用 store.state.staTest
   staTest: 'test store'
 }
 
@@ -16,8 +17,17 @@ const mutations = {
   }
 }
 
+const actions = {
+	actTest(context, payload) {
+		setTimeout(() => {
+			context.commit('mutTest', payload)
+		}, 1000)
+	}
+}
+
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
+	actions
 }

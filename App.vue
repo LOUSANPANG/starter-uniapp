@@ -9,7 +9,8 @@
 			detectVersionUpdate()
 		},
 		onHide() {},
-		onError() {},
+		// 捕获 app error
+		onError (err) {},
 		onUnhandledRejection() {},
 		// 通过分享卡片、小程序码发现页面不存在，才会触发
 		onPageNotFound() {},

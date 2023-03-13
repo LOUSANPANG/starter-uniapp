@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Test from './test/test'
+import Test from './modules/test'
 
 Vue.use(Vuex)
 
