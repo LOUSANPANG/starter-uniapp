@@ -117,7 +117,7 @@ LOUSANPANG/uniapp-template
 	- wx_errno.js 微信错误码大全
 	- wx_log.js 小程序实时日志
 
-### uview-ui 1.x ui库
+### uview-ui 2.x ui库
 
 ### workers 多线程
 
