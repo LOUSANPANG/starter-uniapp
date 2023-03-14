@@ -1,7 +1,7 @@
 <template>
 	<view class="my-skeleton-screen">
-		<view class="post" v-for="item in num" :key="item">
-			<view v-if="showThumbnail" class="thumbnail"></view>
+		<view class="post" v-for="item in props.num" :key="item">
+			<view v-if="props.showThumbnail" class="thumbnail"></view>
 			<view class="info">
 				<view class="line line-title"></view>
 				<view class="line line-desc"></view>
@@ -10,27 +10,25 @@
 	</view>
 </template>
 
-<script>
+<script setup>
+  import {} from '@dcloudio/uni-app'
+	
 	/**
 	 * SkeletonScreen 骨架屏
 	 * @description 预加载数据时loading效果
 	 * @property {Number} showThumbnail = [true|false] 是否开启缩略图
 	 * @property {Boolean} num 骨架屏的展示数量
 	 */
-	export default {
-		name: 'MySkeletonScreen',
-
-		props: {
-			num: {
-				type: Number,
-				default: 4
-			},
-			showThumbnail: {
-				type: Boolean,
-				default: true
-			}
+	const props = defineProps({
+		num: {
+			type: Number,
+			default: 4
+		},
+		showThumbnail: {
+			type: Boolean,
+			default: true
 		}
-	}
+	})
 </script>
 
 <style lang="scss">

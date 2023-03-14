@@ -2,12 +2,12 @@
 	<view class="my-loading">
 
 		<!-- 旋转动画 -->
-		<template v-if="loadingType === 'loading1'">
+		<template v-if="props.loadingType === 'loading1'">
 			<view class="loading1" />
 		</template>
 
 		<!-- 三个圆圈横向交叉动画 -->
-		<template v-else-if="loadingType === 'loading2'">
+		<template v-else-if="props.loadingType === 'loading2'">
 			<view class="loading2">
 				<view class="loading2-cirle loading2-cirle1" />
 				<view class="loading2-cirle loading2-cirle2" />
@@ -16,7 +16,7 @@
 		</template>
 
 		<!-- 音乐跳动动画 -->
-		<template v-else-if="loadingType === 'loading3'">
+		<template v-else-if="props.loadingType === 'loading3'">
 			<view class="loading3">
 				<view class="loading3-line loading3-line1" />
 				<view class="loading3-line loading3-line2" />
@@ -27,22 +27,20 @@
 	</view>
 </template>
 
-<script>
+<script setup>
+  import {} from '@dcloudio/uni-app'
+
 	/**
 	 * MyLoading 全屏加载组件
 	 * @description 数据加载时展示的加载组件
 	 * @property {string=} loadingType 加载动画的类型
 	 */
-	export default {
-		name: 'MyLoading',
-
-		props: {
-			loadingType: {
-				type: String,
-				default: 'loading1'
-			}
+	const props = defineProps({
+		loadingType: {
+			type: String,
+			default: 'loading1'
 		}
-	}
+	})
 </script>
 
 <style lang="scss">

@@ -11,7 +11,7 @@
 				"title": "MP本地开发",
 				"env": {
 					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "http://10.160.11.XX:8090",
+					"HOST": "http://xx.xx.xx.XX:8090",
 					"FSF_URL": "",
 					"ICON_URL": ""
 				},

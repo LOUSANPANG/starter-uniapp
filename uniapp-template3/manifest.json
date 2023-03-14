@@ -58,8 +58,7 @@
                 "ad" : {}
             }
         },
-        "nativePlugins" : {
-        }
+        "nativePlugins" : {}
     },
     /* 微信小程序 特有配置 */
     "mp-weixin" : {
@@ -107,5 +106,6 @@
         },
         /* 三方SDK配置 */
         "sdkConfigs" : {}
-    }
+    },
+    "vueVersion" : "3"
 }

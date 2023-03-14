@@ -1,16 +1,12 @@
 <template>
-	<view class="">
+	<view class="index">
 	</view>
 </template>
 
-<script>
-	export default {
-		name: '',
+<script setup>
+	import { } from 'vue'
+	import { } from '@dcloudio/uni-app'
 
-		data() {
-			return {}
-		}
-	}
 </script>
 
 <style scoped lang="scss">

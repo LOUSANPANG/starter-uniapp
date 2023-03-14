@@ -12,10 +12,8 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		name: 'NotFound'
-	}
+<script setup>
+  import {} from '@dcloudio/uni-app'
 </script>
 
 <style lang="scss" scoped>

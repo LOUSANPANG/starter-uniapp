@@ -1,31 +1,29 @@
 <template>
 	<view class="my-empty">
-		<image class="img" :src="url" />
-		<view class="title">{{title}}</view>
+		<image class="img" :src="props.url" />
+		<view class="title">{{props.title}}</view>
 	</view>
 </template>
 
-<script>
+<script setup>
+  import {} from '@dcloudio/uni-app'
+
 	/**
 	 * MyEmpty 空状态组件
 	 * @description 数据为空时展示空状态组件
 	 * @property {string=} url	图片https路径
 	 * @property {string=} title 标题
 	 */
-	export default {
-		name: 'MyEmpty',
-
-		props: {
-			url: {
-				type: String,
-				default: '/static/system/no-data.png'
-			},
-			title: {
-				type: String,
-				default: '暂无相关数据'
-			}
+	const props = defineProps({
+		url: {
+			type: String,
+			default: '/static/system/no-data.png'
+		},
+		title: {
+			type: String,
+			default: '暂无相关数据'
 		}
-	}
+	})
 </script>
 
 <style lang="scss">

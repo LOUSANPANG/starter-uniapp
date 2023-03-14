@@ -7,17 +7,8 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		name: 'Fail',
-
-		data() {
-			return {}
-		},
-
-		methods: {}
-
-	}
+<script setup>
+  import {} from '@dcloudio/uni-app'
 </script>
 
 <style lang="scss">

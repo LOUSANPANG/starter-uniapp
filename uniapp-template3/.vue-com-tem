@@ -3,16 +3,9 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		name: '',
-
-		data() {
-			return {}
-		},
-
-		methods: {}
-	}
+<script setup>
+	import {} from '@dcloudio/uni-app'
+	import {} from 'vue'
 </script>
 
 <style lang="scss">
