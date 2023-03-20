@@ -20,11 +20,11 @@ module.exports = {
 		config
 			.devServer
 			.proxy({
-				'/api': {
+				'/xxx': {
 					target: 'https://xxx.com',
 					changeOrigin: true,
 					pathRewrite: {
-						'^/api': ''
+						'^/xxx': ''
 					}
 				}
 			})

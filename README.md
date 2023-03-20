@@ -129,4 +129,8 @@ LOUSANPANG/uniapp-template
 
 ### router.js 简易路由拦截
 
-### vue.config.js 内网穿透、生产环境优化、环境变量等
+### vue.config.js
+	- 内网穿透
+	- 生产环境优化
+	- 环境变量
+	- 跨域
