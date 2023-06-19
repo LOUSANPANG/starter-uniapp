@@ -15,7 +15,7 @@
  * c 新增getUserProfile接口可获取用户信息 均需用户确认
  */
 import customShowToast from '@/utils/custom_toast.js'
-import { clearStorageSync, setStorageSync } from '@/utils/custom_storage.js'
+import customStorage from '@/utils/custom_storage.js'
 import customLogin from '@/utils/custom_login.js'
 import CONFIG from '@/config.js'
 import { toLogin } from './tologin'
@@ -50,14 +50,14 @@ const silentLogin = async (complete) => {
 			console.info('登录接口成功✅: ', requestRes)
 			if (requestRes.statusCode === 200 && requestRes.data.code === '00') {
 				const data = requestRes.data.data
-				setStorageSync('token', data.token)
-				setStorageSync('key', data.key)
-				setStorageSync('user', data)
+				customStorage.setToken(data.token)
+				customStorage.setKey(data.key)
+				customStorage.setUser(data)
 
 				// 回调执行token失效的服务
 				complete()
 			} else {
-				clearStorageSync()
+				customStorage.clearAll()
 				uni.showModal({
 					title: "提示",
 					content: "登录信息已过期，请重新登录",

@@ -3,7 +3,7 @@ import { postLogin, postSubscribeInfo } from '../services/api/user.js'
 import { getWxConfig } from '../services/api/activity.js'
 import customShowToast from './custom_toast.js'
 import { parseHistoryUrl, removeUrlParams } from './parse_url.js'
-import { setStorageSync, getStorageSync, setSessionStorage, getSessionStorage } from './custom_storage.js'
+import customStorage from './custom_storage.js'
 
 
 /**
@@ -48,7 +48,7 @@ export const getWxCode = (url) => {
  */
 export const authorizedLogin = async () => {
 	// HACK 删除缓存但是code还存在 login服务就会报500
-	if (!getStorageSync('userToken')) {
+	if (!customStorage.getToken()) {
 		const loginCode = parseHistoryUrl('code')
 		if (loginCode) {
 			const loginData = await postLogin({ loginCode })
@@ -58,7 +58,7 @@ export const authorizedLogin = async () => {
 				getWxCode(newUrl)
 				return false
 			} else {
-				setStorageSync('userToken', loginData.result)
+				customStorage.setToken(loginData.result)
 				return await isFollowGzh()
 			}
 		} else {
@@ -111,7 +111,7 @@ export const configWxApi = async (url, jsApiList, fn) => {
  */
 export const isFollowGzh = async () => {
 	let isReturn = true
-	if (!getSessionStorage('isFollow')) {
+	if (!customStorage.getGzhFollow()) {
 		const { result: isFollow } = await postSubscribeInfo()
 		if (isFollow !== '1') {
 			isReturn = false
@@ -119,7 +119,7 @@ export const isFollowGzh = async () => {
 				url: '/pages/follow/follow'
 			})
 		} else {
-			setSessionStorage('isFollow', true)
+			customStorage.stGzhFollow(true)
 		}
 	}
 	return isReturn

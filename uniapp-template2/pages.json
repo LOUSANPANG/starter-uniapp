@@ -1,41 +1,44 @@
 {
 	"easycom": {
+		"^my-(.*)": "@/components/my-$1/my-$1.vue",
 		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
 	},
 
 
-	// 配置
-	// ifdef MP-WEIXIN
-	"lazyCodeLoading": "requiredComponents",
-	//endif
-
 	// 全局样式
 	"globalStyle": {
-		// ifdef MP-WEIXIN
-		"initialRenderingCache": "static",
-		//endif
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"navigationBarTitleText": "",
+		// #ifdef MP-WEIXIN
 		"backgroundColor": "#F8F8F8"
+		// #endif
+	},
+
+	// tabBar
+	"tabBar": {
+		"color": "#666666",
+		"selectedColor": "#333333",
+		"backgroundColor": "#FFFFFF",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/icon_index.png",
+				"selectedIconPath": "static/tabbar/icon_index_HL.png"
+			}
+		]
 	},
 
 
 	// 页面
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/index/index",
 			"name": "index",
-			"meta": { "loginAuth": true },
 			"style": {
-				"navigationBarTitleText": "index",
 				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/login/login",
-			"name": "login",
-			"style": {
-				"navigationBarTitleText": "login"
+				// "navigationBarTitleText": "我的",
+				// "navigationBarBackgroundColor": "#F5F5FB"
 			}
 		}
 	],
@@ -44,23 +47,12 @@
 	// 分包
 	"subPackages": [
 		{
-			"root": "pagesChild/status",
-			"pages": [{
-					"path": "fail",
-					"style": {
-						"navigationBarTitleText": "失败页"
-					}
-				},
+			"root": "pagesChild",
+			"pages": [
 				{
-					"path": "success",
+					"path": "login/login",
 					"style": {
-						"navigationBarTitleText": "成功页"
-					}
-				},
-				{
-					"path": "404",
-					"style": {
-						"navigationBarTitleText": "404"
+						"navigationStyle": "custom"
 					}
 				}
 			]
@@ -68,11 +60,13 @@
 	],
 
 	// 分包预下载
-	//ifdef MP-WEIXIN
 	"preloadRule": {
 		"pages/index/index": {
-			"packages": ["pagesChild/status"]
+			// #ifdef MP-WEIXIN
+			"network": "all",
+			// #endif
+			"packages": ["pagesChild"]
 		}
 	}
-	//endif
+
 }

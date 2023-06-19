@@ -3,6 +3,31 @@ module.exports = {
 		// #ifdef H5
 			// 调试时允许内网穿透，让外网的人访问到本地调试的H5页面
 			config.devServer.disableHostCheck(true)
+
+			// 解决H5跨域问题
+			config
+				.devServer
+				.proxy({
+					'/xxx': {
+						target: 'https://xxx.com',
+						changeOrigin: true,
+						pathRewrite: {
+							'^/xxx': ''
+						}
+					}
+				})
+		// #endif
+		
+		// #ifdef APP-PLUS
+			// 配置环境变量
+			config
+				.plugin('define')
+				.tap(args => {
+					args[0]['process.env'].HOST = '""'
+					args[0]['process.env'].FSfURL = '""'
+					args[0]['process.env'].ICON = '""'
+					return args
+				})
 		// #endif
 
 		// 生产环境去除console代码
@@ -16,25 +41,13 @@ module.exports = {
 		// 	return args
 		// })
 
-		// 解决H5跨域问题
-		config
-			.devServer
-			.proxy({
-				'/xxx': {
-					target: 'https://xxx.com',
-					changeOrigin: true,
-					pathRewrite: {
-						'^/xxx': ''
-					}
-				}
-			})
-
 		// 配置环境变量
-		config
-			.plugin('define')
-			.tap(args => {
-				args[0]['process.env'].VAR = '"i am global var"'
-				return args
-			})
+		// config
+		// 	.plugin('define')
+		// 	.tap(args => {
+		// 		args[0]['process.env'].VAR = '"i am global var"'
+		// 		return args
+		// 	})
+			
 	}
 }

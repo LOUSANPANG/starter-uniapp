@@ -5,7 +5,7 @@ import md5WithSalt from './md5-signature.js'
 import silentLogin from './silent-login.js'
 import { toLogin } from './tologin'
 import customShowToast from '@/utils/custom_toast.js'
-import { getStorageSync, clearStorageSync } from '@/utils/custom_storage.js'
+import customStorage from '@/utils/custom_storage.js'
 import CONFIG from '@/config.js'
 
 
@@ -32,8 +32,8 @@ $API.interceptors.request.use((config) => {
 		...config.header,
 		uuid: uuidv1(),
 		timestamp: Date.parse(new Date()) / 1000,
-		sign: md5WithSalt(config.data, getStorageSync('key')),
-		Authorization: getStorageSync('token')
+		sign: md5WithSalt(config.data, customStorage.getKey()),
+		Authorization: customStorage.getToken()
 	}
 	// if (config.custom.auth) {
 	//   config.header.token = 'token'
@@ -90,7 +90,7 @@ $API.interceptors.response.use(async (response) => {
 		} else if (statusCode === 403) {
 			customShowToast(`${statusCode}没有权限访问`)
 			// setTimeout(() => {
-			// 	clearStorageSync()
+			// 	customStorage.clearAll()
 			// 	toLogin()
 			// 	// return Promise.reject(`${statusCode}没有权限访问`)
 			// }, 2000)
@@ -98,7 +98,7 @@ $API.interceptors.response.use(async (response) => {
 			// 401
 			customShowToast(`${statusCode}需要鉴权`)
 			// setTimeout(() => {
-			// 	clearStorageSync()
+			// 	customStorage.clearAll()
 			// 	toLogin()
 			// 	// return Promise.reject(`${statusCode}需要鉴权`)
 			// }, 2000)

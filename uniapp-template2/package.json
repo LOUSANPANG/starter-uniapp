@@ -1,9 +1,4 @@
 {
-	"name": "uniapp-template",
-	"description": "uniapp-template tools",
-	"author": "LOUSANPANG",
-	"license": "ISC",
-
 	"uni-app": {
 		"scripts": {
 
