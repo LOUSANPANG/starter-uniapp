@@ -54,7 +54,7 @@
 	}
 
 	.my-loading {
-		position: absolute;
+		position: fixed;
 		z-index: 10000;
 		left: 0;
 		top: 0;

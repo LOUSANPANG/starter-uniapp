@@ -20,14 +20,14 @@ module.exports = {
 		
 		// #ifdef APP-PLUS
 			// 配置环境变量
-			config
-				.plugin('define')
-				.tap(args => {
-					args[0]['process.env'].HOST = '""'
-					args[0]['process.env'].FSfURL = '""'
-					args[0]['process.env'].ICON = '""'
-					return args
-				})
+			// config
+			// 	.plugin('define')
+			// 	.tap(args => {
+			// 		args[0]['process.env'].HOST = '""'
+			// 		args[0]['process.env'].FSfURL = '""'
+			// 		args[0]['process.env'].ICON = '""'
+			// 		return args
+			// 	})
 		// #endif
 
 		// 生产环境去除console代码

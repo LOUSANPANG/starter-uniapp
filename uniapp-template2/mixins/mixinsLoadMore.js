@@ -1,92 +1,90 @@
 /**
  * 使用
- * 	- 引入 import mixinsLoadMore from '@/mixins/mixinsLoadMore.js'
+ * 	- 引入 import mixinsLoadMore from 'mixins/mixinsLoadMore.js'
  * 	- 混入 mixins: [mixinsLoadMore]
- *  - 初始化分页数据 onLoad() { this.mixOnLoad() }
- *  - 下拉加载 onReachBottom() { this.mixOnReachBottom() }
- * 利用 <u-loadmore :status="mixLoadStatus" />
+ * 	- 页面(因为参数，所以需要在页面单独引用) onLoad(){this.mixOnLoad()}
+ *  - 页面data配置
+ * 		- mixUrl接口地址
+ * 		- requestData请求参数
+ * 		- mixListKey 列表在data的某个key中
+ * 		- isMapList 是否需要对数据进行变更
+ *  - 页面methods方法
+ * 		- mapRequestData 如果有需要对返回数据进行组织
+ * 利用 <u-loadmore v-if="mixList.length>=mixPage.limit" :status="mixLoadStatus" />
  */
 
 import $API from '@/services/services-base/http-interceptors.js'
+import { formatGetParams } from '@/utils/custom_format.js'
+
 export default {
 	data() {
 		return {
-			// 分页数据
-			mixPage: {
+			mixPage: { // 分页数据
 				pageNum: 1,
 				pageSize: 20
 			},
-			// 下拉加载更多
-			mixShowLoadMore: false,
 			mixLoadStatus: 'loadmore', // _loadmore-加载前的状态，loading-加载中的状态，nomore-没有更多的状态
-			// 数据
-			mixDataList:[],
-			mixList:[],
-			// 请求接口地址
-			mixUrl: 'xxx',
-			// 返回 data 中的列表键名
-			mixListKey: 'list', // _数据为空的时候为null，若为[]需要i修改服务返回的数据判断\
-			// 最多调用次数, 0无次数限制
-			mixMaxPage: 0,
+			mixList:[], // 返回数据
+			requestData: {}, // 请求参数
+			mixUrl: 'xxx', // 请求接口地址
+			mixListKey: '', // 列表在data的某个key中
+			isMapList: false, // 是否对返回的数据进行组织
 		}
 	},
+	
+	// 下拉刷新
+	onPullDownRefresh() {
+		this.mixOnLoad()
+		uni.stopPullDownRefresh()
+	},
+	// 上拉加载
+	onReachBottom() {
+		this.mixOnReachBottom()
+	},
+	
 	methods: {
 		// 初始化数据
 		mixOnLoad(){
-			this.mixDataList = []
-			this.mixPage.pageNum = 1
+			this.mixList = []
+			this.mixPage.pageNum = 0
+			this.mixLoadStatus='loadmore'
 			this.getDataList()
 		},
 		// 触底执行
 		mixOnReachBottom(){
-			if (!this.mixShowLoadMore) {
-				this.mixShowLoadMore = true
-				this.mixPage.pageNum += 1
-				this.getDataList()
-			}
+			if (this.mixLoadStatus!='loadmore') return
+			this.mixPage.pageNum += this.mixPage.pageSize
+			this.getDataList()
 		},
 
 		// 获取数据列表
 		getDataList(){
-			this.mixList = []
-
-			if(this.mixMaxPage!=0 && this.mixPage.pageNum > this.mixMaxPage){
-				console.error('超出最大调用次数,max ===>' + this.mixMaxPage)
-				console.error('current ===>' + this.mixPage.pageNum)
-				this.mixLoadStatus = 'nomore'
-				this.mixShowLoadMore = true
-				return
-			}
+			if (this.mixLoadStatus!='loadmore') return
 
 			this.mixLoadStatus = 'loading'
 			$API.post(this.mixUrl, {
-				currPage: this.mixPage.pageNum,
-				pageSize: this.mixPage.pageSize
+				...this.mixPage,
+				...this.requestData
 			}).then(res=>{
-				this.mixShowLoadMore = false
-				this.mixLoadStatus = 'loadmore'
-
-				// 如果列表为空，则不再获取
-				// TIPS 数据为空的时候，mixListKey为null不可是[]
-				if (!res.data[this.mixListKey]) {
-					this.mixShowLoadMore = true
-					this.mixLoadStatus = 'nomore'
-					return
+				let list = []
+				if (this.mixListKey) {
+					list = res.data[this.mixListKey]
+				} else {
+					list = res.data
 				}
-
-				// 数据添加
-				this.mixList = res.data[this.mixListKey]
-				this.mixDataList.push(...this.mixList)
-
-				// 如果请求数量小于分页数量，则不再请求
-				if(this.mixList.length < this.mixPage.pageSize){
-					this.mixShowLoadMore = true
+				// 有需要对返回的数据进行重新组织
+				if (this.isMapList) {
+					list = this.mapRequestData(list)
+				}
+				// 赋值列表
+				this.mixList = this.mixList.concat(list)
+				// 判断是否有下一页
+				if (res.data.count > this.mixList.length) {
+					this.mixLoadStatus = 'loadmore'
+				} else {
 					this.mixLoadStatus = 'nomore'
-					return
 				}
 			}).catch(err => {
-				console.error('请求下一页数据服务失败 ===>', err)
-				this.mixShowLoadMore = false
 				this.mixLoadStatus = 'loadmore'
 			}).finally(()=>{})
 		}

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-	import { postWxPay } from '../../services/api/pay.js'
+	import { postWxPay } from '@/services/api/pay.js'
 
 	export default {
 		name: 'Pay',
@@ -40,8 +40,8 @@
 
 		data() {
 			return {
-				vipIconWx: '/static/speaksmark/icon_pay_wx.png',
-				vipIconAliPay: '/static/speaksmark/icon_pay_alipay.png',
+				vipIconWx: '', // 微信支付图标
+				vipIconAliPay: '', // 支付宝支付图标
 
 				isPopupPay: this.show,
 				radioPayOption: 'wxPay', // wxPay、aliPay

@@ -1,5 +1,6 @@
 // web socket
-import { Storage } from '@/utils/storage.js'
+import Storage from '@/utils/custom_storage.js'
+import { toLogin } from '@/services/services-base/tologin.js'
 
 export default {
 	data() {
@@ -39,9 +40,7 @@ export default {
 				const data = JSON.parse(res.data)
 				if (data.errNo == 3) {
 					this.$TOAST(data.errMsg)
-					uni.navigateTo({
-						url: '/pagesChild/login/login'
-					})
+					toLogin()
 				} else if (data.errNo == 4) { // 次数已用完
 
 				} else if (data.errNo == 5) { // 会员到期

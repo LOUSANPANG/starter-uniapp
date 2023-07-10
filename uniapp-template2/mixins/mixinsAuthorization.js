@@ -1,5 +1,5 @@
-import { storage } from '@/utils/inzoneStorage.js'
-import { sqtgStorage } from '../utils/sqtg_storage.js'
+import Storage from '@/utils/custom_storage.js'
+import { toLogin } from '@/services/services-base/tologin.js'
 
 const stationErrorMsg = '获取失败，点击重试'
 
@@ -11,13 +11,13 @@ export default {
 	data() {
 		return {
 			longitlatit: null,
-			token: storage.getUserToken(),
+			token: Storage.getToken(),
 		}
 	},
 	
 	methods: {
 		isAuthorize() {
-			this.token = storage.getUserToken()
+			this.token = Storage.getToken()
 			if (!this.token) {
 				this.navLogin()
 				return true
@@ -65,7 +65,6 @@ export default {
 					const { longitude, latitude } = res
 					const longitlatit = [longitude, latitude]
 					this.longitlatit = longitlatit
-					// sqtgStorage.setLongitlatit(longitlatit)
 					fn && fn()
 				},
 				fail: () => {
@@ -77,13 +76,7 @@ export default {
 		
 		// 获取登录
 		navLogin() {
-			uni.showLoading({ title: '' })
-			uni.navigateTo({
-				url: '/pagesChild/login/login',
-				complete() {
-					uni.hideLoading()
-				}
-			})
+			toLogin()
 		}
 		
 	}

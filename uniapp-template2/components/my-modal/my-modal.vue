@@ -1,20 +1,19 @@
 <template>
 	<view class="modal">
+		<u-popup :show="true" round="32">
 
-		<u-popup :show="isPopupBuy" mode="center" round="24" :customStyle="stylePopupBuy">
-			<view class="m-popup__buy">
-				<image class="m-popup__buy-bg" :src="vipPopupBg"></image>
-				<view class="m-popup__buy-info">
-					<image class="info-iconblack" :src="vipIconWhite"></image>
-					<view class="info-text">
-						<view class="info-text__title">{{ title }}</view>
-						<view class="info-text__subtitle">{{ subTitle }}</view>
+			<view class="container">
+				<view v-if="title" class="title">{{title}}</view>
+				<view v-if="subTitle" class="subtitle">{{subTitle}}</view>
+				<view class="flex_center">
+					<view class="btn">
+						<view class="btn_item cancle" @click="handleCancle">取消</view>
+						<view class="btn_item submit" @click="handleSubmit">确定</view>
 					</view>
 				</view>
-				<view class="m-popup__buy-btn" @click="handleSubmit">确定</view>
 			</view>
-		</u-popup>
 
+		</u-popup>
 	</view>
 </template>
 
@@ -23,91 +22,85 @@
 		name: 'Modal',
 
 		props: {
-			show: {
-				type: Boolean,
-				require: true
-			},
 			title: {
 				type: String,
-				default: '欢迎加入', // 欢迎加入 成功续费
+				default: '',
 			},
 			subTitle: {
 				type: String,
-				default: 'AI口语外教会员',
+				default: '',
 			}
 		},
 
 		data() {
 			return {
-				vipPopupBg: '/static/speaksmark/component_popup_bg.png',
-				vipIconWhite: '/static/speaksmark/icon_logo_white.png',
-
-				isPopupBuy: this.show,
-				stylePopupBuy: {
-					width: '576rpx',
-					height: '644rpx'
-				},
 			}
 		},
 
 		methods: {
+			handleCancle() {
+				this.$emit('emit-modal-cancle')
+			},
 			handleSubmit() {
-				this.$emit('emit-modal-close')
+				this.$emit('emit-modal-submit')
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	@mixin flexCenter {
+	.flex_center {
+		width: 100%;
 		display: flex;
-		align-items: center;
+		justify-content: center;
 	}
 
-	.m-popup__buy {
-		position: relative;
-		width: 576rpx;
-		height: 644rpx;
-		&-bg {
+	.container {
+		padding: 48rpx 0 32rpx;
+		width: 100%;
+		.title {
+			margin-bottom: 32rpx;
 			width: 100%;
-			height: 100%;
+			color: #333;
+			text-align: center;
+			font-size: 32rpx;
+			line-height: 32rpx;
 		}
-		&-info {
-			position: absolute;
-			z-index: 1;
-			@include flexCenter;
-			left: 52rpx;
-			top: 118rpx;
-			.info-iconblack {
-				margin-right: 14rpx;
-				width: 200rpx;
-				height: 218rpx;
-			}
-			.info-text {
-				font-weight: 500;
-				font-size: 40rpx;
-				line-height: 131%;
-				color: #FFFFFF;
-				&__title {
-					margin-bottom: 16rpx;
-				}
-			}
+		.subtitle {
+			margin: 0 auto 32rpx;
+			text-align: center;
+			width: 430rpx;
+			color: #666;
+			font-size: 28rpx;
+			line-height: 48rpx;
 		}
-		&-btn {
-			position: absolute;
-			z-index: 2;
-			left: 134rpx;
-			bottom: 90rpx;
-			@include flexCenter;
-			justify-content: center;
-			width: 308rpx;
-			height: 80rpx;
-			border-radius: 40rpx;
-			background-color: #6DD26F;
-			font-weight: 400;
-			font-size: 40rpx;
-			letter-spacing: 1rpx;
-			color: #FFFFFF;
+		.btn {
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			width: 430rpx;
+			&_item {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 20rpx 0;
+				width: 240rpx;
+				border-radius: 40rpx;
+			}
+			.cancle {
+				margin-right: 16rpx;
+				border: 2rpx solid #E5E5E5;
+				background-color: #fff;
+				color: #666;
+				font-size: 32rpx;
+				line-height: 32rpx;
+			}
+			.submit {
+				background: #3A8E7C;
+				color: #fff;
+				font-size: 32rpx;
+				line-height: 32rpx;
+			}
 		}
 	}
 </style>

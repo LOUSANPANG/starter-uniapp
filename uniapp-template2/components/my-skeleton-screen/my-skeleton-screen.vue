@@ -1,12 +1,17 @@
 <template>
 	<view class="my-skeleton-screen">
-		<view class="post" v-for="item in num" :key="item">
-			<view v-if="showThumbnail" class="thumbnail"></view>
-			<view class="info">
-				<view class="line line-title"></view>
-				<view class="line line-desc"></view>
+		
+		<template v-if="type == 'list'">
+			<view class="list_item" v-for="item in 6" :key="item"></view>
+		</template>
+		
+		<template v-if="type == 'paragraph'">
+			<view class="paragraph" v-for="val in 3" :key="val">
+				<view class="paragraph_tip"></view>
+				<view class="paragraph_item" v-for="item in 3" :key="item"></view>
 			</view>
-		</view>
+		</template>
+		
 	</view>
 </template>
 
@@ -14,91 +19,71 @@
 	/**
 	 * SkeletonScreen 骨架屏
 	 * @description 预加载数据时loading效果
-	 * @property {Number} showThumbnail = [true|false] 是否开启缩略图
 	 * @property {Boolean} num 骨架屏的展示数量
 	 */
 	export default {
 		name: 'MySkeletonScreen',
-
 		props: {
-			num: {
-				type: Number,
-				default: 4
-			},
-			showThumbnail: {
-				type: Boolean,
-				default: true
+			type: {
+				type: String,
+				default: 'list', // list paragraph
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
-	$base-color: #ddd;
-	$shine-color: #e8e8e8;
-	$animation-duration: 1.6s;
-	$thumbnail-offset: 52+16;
-	@mixin background-gradient() {
-		background-image: linear-gradient(90deg, $base-color 0rpx, $shine-color 40rpx, $base-color 80rpx);
-		background-size: 600rpx;
-	}
-
-	@keyframes shine-lines {
+<style lang="scss" scoped>
+	@keyframes skeleton {
 		0% {
-			background-position: -100rpx;
+			background-position: 100% 50%;
 		}
-		40%,
 		100% {
-			background-position: 140rpx;
+			background-position: 0 50%;
 		}
 	}
-	@keyframes shine-thumbnail {
+	@keyframes skeleton-blink {
 		0% {
-			background-position: -100rpx + $thumbnail-offset;
+			opacity: 1;
 		}
-		40%,
+		50% {
+			opacity: 0.6;
+		}
 		100% {
-			background-position: 140rpx + $thumbnail-offset;
+			opacity: 1;
 		}
-	}
-
-	.my-skeleton-screen {
-		width: 100%;
-		height: 100vh;
 	}
 	
-	.post {
-		display: flex;
-		width: 95%;
-		height: 168rpx;
-		margin: 0 auto 24rpx;
+	@mixin animation {
+		animation: skeleton 1.8s ease infinite;
+		background: linear-gradient(90deg, #F1F2F4 25%, #e6e6e6 37%, #F1F2F4 50%);
+		background-size: 400% 100%;
 	}
-	.thumbnail {
-		margin-right: 14rpx;
-		width: 280rpx;
-		height: 100%;
-		border-radius: 14rpx;
-		background-color: #ccc;
-		@include background-gradient;
-		animation: shine-thumbnail $animation-duration infinite linear;
+
+	// 列表
+	.list_item {
+		margin-bottom: 24rpx;
+		width: 100%;
+		height: 160rpx;
+		border-radius: 16rpx;
+		@include animation;
 	}
 	
-	.info {
+	// 标题+列表
+	.paragraph {
 		width: 100%;
-	}
-	.line {
-		margin-top: 14rpx;
-		height: 28rpx;
-		border-radius: 7rpx;
-		background-color: #ddd;
-		@include background-gradient;
-		animation: shine-lines $animation-duration infinite linear;
-		&-title {
-			margin-bottom: 28rpx;
-			width: 35%;
+		margin-bottom: 16rpx;
+		&_tip {
+			margin-bottom: 16rpx;
+			width: 250rpx;
+			height: 44rpx;
+			@include animation;
 		}
-		&-desc {
-			width: 45%;
+		&_item {
+			margin-bottom: 16rpx;
+			width: 100%;
+			min-height: 80rpx;
+			border-radius: 16rpx;
+			@include animation;
 		}
 	}
 </style>

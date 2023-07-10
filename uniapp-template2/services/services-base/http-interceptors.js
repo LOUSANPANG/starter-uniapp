@@ -1,19 +1,18 @@
 // 拦截器
 import uuidv1 from '@/js_sdk/uuid/dist/v1.js'
 import Request from '@/uni_modules/luch-request/luch-request/index.js';
+import Storage from '@/utils/custom_storage.js'
+import customShowToast from '@/utils/custom_toast.js'
 import md5WithSalt from './md5-signature.js'
 import silentLogin from './silent-login.js'
-import { toLogin } from './tologin'
-import customShowToast from '@/utils/custom_toast.js'
-import customStorage from '@/utils/custom_storage.js'
-import CONFIG from '@/config.js'
+import { toLogin } from './tologin.js'
 
 
 const $API = new Request()
 
 $API.setConfig((config) => {
 	const _config = {
-		baseURL: CONFIG.host,
+		baseURL: process.env.HOST,
 		custom: {}
 	}
 	return {
@@ -32,16 +31,20 @@ $API.interceptors.request.use((config) => {
 		...config.header,
 		uuid: uuidv1(),
 		timestamp: Date.parse(new Date()) / 1000,
-		sign: md5WithSalt(config.data, customStorage.getKey()),
-		Authorization: customStorage.getToken()
+		sign: md5WithSalt(config.data, Storage.getKey()),
+		Authorization: Storage.getToken()
 	}
 	// if (config.custom.auth) {
 	//   config.header.token = 'token'
 	// }
-	console.log('请求前正确拦截⛔️: ', config)
+	if (process.env.NODE_ENV == 'production') {
+		console.log('请求前正确拦截⛔️: ', config)
+	}
 	return Promise.resolve(config)
 }, config => {
-	console.error('请求前错误拦截⛔️: ', config)
+	if (process.env.NODE_ENV == 'production') {
+		console.error('请求前错误拦截⛔️: ', config)
+	}
 	return Promise.reject(config)
 })
 
@@ -52,7 +55,9 @@ $API.interceptors.request.use((config) => {
  * code 数据判断
  */
 $API.interceptors.response.use(async (response) => {
-	console.info('请求拦截后成功码✅: ', response)
+	if (process.env.NODE_ENV == 'production') {
+		console.info('请求拦截后成功码✅: ', response)
+	}
 	const { resCode, resMsg } = response.data
 	
 	// if (response.config.custom.verification) { // 演示自定义参数的作用
@@ -75,7 +80,9 @@ $API.interceptors.response.use(async (response) => {
 	}
 
 }, (response) => {
-	console.info('请求拦截后错误码❌: ', response)
+	if (process.env.NODE_ENV == 'production') {
+		console.info('请求拦截后错误码❌: ', response)
+	}
 	const { statusCode, errMsg } = response
 
 	if (!statusCode) {
@@ -90,18 +97,26 @@ $API.interceptors.response.use(async (response) => {
 		} else if (statusCode === 403) {
 			customShowToast(`${statusCode}没有权限访问`)
 			// setTimeout(() => {
-			// 	customStorage.clearAll()
+			// 	Storage.clearAll()
 			// 	toLogin()
 			// 	// return Promise.reject(`${statusCode}没有权限访问`)
 			// }, 2000)
 		} else if (statusCode === 401) {
-			// 401
 			customShowToast(`${statusCode}需要鉴权`)
-			// setTimeout(() => {
-			// 	customStorage.clearAll()
-			// 	toLogin()
-			// 	// return Promise.reject(`${statusCode}需要鉴权`)
-			// }, 2000)
+			// uni.showModal({
+			// 	title: '提示',
+			// 	content: '登录失效，请重新登录',
+			// 	showCancel: false,
+			// 	confirmText: '去登录',
+			// 	confirmColor: '#3A8E7C',
+			// 	success: function (res) {
+			// 		if (res.confirm) {
+			// 			Storage.clearStorage()
+			// 		}
+			// 	}
+			// })
+		} else {
+			customShowToast(statusCode + errMsg)
 		}
 	}
 	// return null

@@ -1,9 +1,8 @@
-import CONFIG from '@/config.js'
 import { postLogin, postSubscribeInfo } from '../services/api/user.js'
 import { getWxConfig } from '../services/api/activity.js'
 import customShowToast from './custom_toast.js'
 import { parseHistoryUrl, removeUrlParams } from './parse_url.js'
-import customStorage from './custom_storage.js'
+import Storage from '@/utils/custom_storage.js'
 
 
 /**
@@ -23,7 +22,7 @@ export const isWxClient = () => {
  * 获取微信授权回调code
  */
 export const getWxCode = (url) => {
-	const appid = CONFIG.appId
+	const appid = process.env.APPID
 	const scope = 'snsapi_userinfo'
 	let local = url ? url : window.location.href
 	local = encodeURIComponent(decodeURIComponent(local))
@@ -48,7 +47,7 @@ export const getWxCode = (url) => {
  */
 export const authorizedLogin = async () => {
 	// HACK 删除缓存但是code还存在 login服务就会报500
-	if (!customStorage.getToken()) {
+	if (!Storage.getToken()) {
 		const loginCode = parseHistoryUrl('code')
 		if (loginCode) {
 			const loginData = await postLogin({ loginCode })
@@ -58,7 +57,7 @@ export const authorizedLogin = async () => {
 				getWxCode(newUrl)
 				return false
 			} else {
-				customStorage.setToken(loginData.result)
+				Storage.setToken(loginData.result)
 				return await isFollowGzh()
 			}
 		} else {
@@ -88,7 +87,7 @@ export const configWxApi = async (url, jsApiList, fn) => {
 			const { timestamp, nonceStr, signature } = wxConfigData.result
 			wx.config({
 				// debug: true,
-				appId: CONFIG.appId,
+				appId: process.env.APPID,
 				timestamp, // 签名的时间戳
 				nonceStr, // 签名的随机串
 				signature, // 签名
@@ -111,7 +110,7 @@ export const configWxApi = async (url, jsApiList, fn) => {
  */
 export const isFollowGzh = async () => {
 	let isReturn = true
-	if (!customStorage.getGzhFollow()) {
+	if (!Storage.getGzhFollow()) {
 		const { result: isFollow } = await postSubscribeInfo()
 		if (isFollow !== '1') {
 			isReturn = false
@@ -119,7 +118,7 @@ export const isFollowGzh = async () => {
 				url: '/pages/follow/follow'
 			})
 		} else {
-			customStorage.stGzhFollow(true)
+			Storage.stGzhFollow(true)
 		}
 	}
 	return isReturn

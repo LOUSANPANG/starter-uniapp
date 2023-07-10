@@ -8,10 +8,7 @@
 	// 全局样式
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		// #ifdef MP-WEIXIN
-		"backgroundColor": "#F8F8F8"
-		// #endif
+		"navigationBarBackgroundColor": "#F8F8F8"
 	},
 
 	// tabBar
@@ -25,6 +22,12 @@
 				"text": "首页",
 				"iconPath": "static/tabbar/icon_index.png",
 				"selectedIconPath": "static/tabbar/icon_index_HL.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "/static/system/tabbar_my.png",
+				"selectedIconPath": "/static/system/tabbar_my_HL.png"
 			}
 		]
 	},
@@ -62,9 +65,7 @@
 	// 分包预下载
 	"preloadRule": {
 		"pages/index/index": {
-			// #ifdef MP-WEIXIN
 			"network": "all",
-			// #endif
 			"packages": ["pagesChild"]
 		}
 	}

@@ -1,10 +1,10 @@
 // 跳转拦截
 import Vue from 'vue'
-import customStorage from '@/utils/custom_storage.js'
+import Storage from '@/utils/custom_storage.js'
 
 
 Vue.prototype.$JUMP = function(backurl, jumpType = 'navigateTo') {
-	const isToken = customStorage.getToken()
+	const isToken = Storage.getToken()
 
 	if(isToken) {
 		uni[jumpType]({
