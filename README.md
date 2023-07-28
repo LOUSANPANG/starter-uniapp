@@ -3,8 +3,8 @@
 ### 插件市场下载
 * [插件市场](https://ext.dcloud.net.cn/plugin?id=7958)
 * 选取对应 Vue 版本文件夹。
-	+ `uniapp-template2` 对应 Vue2 版本
-	+ `uniapp-template3` 对应 Vue3 版本
+	+ `uniapp-vue2` 对应 Vue2 版本
+	+ `uniapp-vue3` 对应 Vue3 版本
 
 ### 命令下载
 ```
@@ -13,7 +13,7 @@ yarn add @vue/cli global
 vue create -p dcloudio/uni-preset-vue my-project
 
 选择自定义模版
-LOUSANPANG/uniapp-template
+LOUSANPANG/fe-uniapp/uniapp-vue2
 ```
 
 
