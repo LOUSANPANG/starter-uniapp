@@ -1,14 +1,19 @@
 <template>
-	<view class="">
+	<view class="index">
+
+		<text class="title">{{ title }}</text>
+
 	</view>
 </template>
 
 <script>
 	export default {
-		name: '',
+		name: 'Index',
 
 		data() {
-			return {}
+			return {
+				title: 'Hello'
+			}
 		}
 	}
 </script>
