@@ -6,7 +6,9 @@
     "versionCode" : "100",
     "transformPx" : false,
     "uniStatistics" : {
-        "enable" : false
+        "enable" : false,
+        "version" : "2",
+        "reportInterval" : "60"
     },
     /* App 特有配置 */
     "app-plus" : {
@@ -58,7 +60,9 @@
                 "ad" : {}
             }
         },
-        "nativePlugins" : {
+        "nativePlugins" : {},
+        "uniStatistics" : {
+            "enable" : false
         }
     },
     /* 微信小程序 特有配置 */
@@ -80,7 +84,10 @@
                 "desc" : "uniapp希望获取您的位置信息"
             }
         },
-        "plugins" : {}
+        "plugins" : {},
+        "uniStatistics" : {
+            "enable" : false
+        }
     },
     // "live-player-plugin": {
     // 	"version": "",
@@ -106,6 +113,9 @@
             "https" : false
         },
         /* 三方SDK配置 */
-        "sdkConfigs" : {}
+        "sdkConfigs" : {},
+        "uniStatistics" : {
+            "enable" : false
+        }
     }
 }
