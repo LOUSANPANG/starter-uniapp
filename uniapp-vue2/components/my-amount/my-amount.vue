@@ -2,9 +2,9 @@
 
 <template>
 	<view class="my-amount" :style="{ color: amountColor }">
-		<view class="unit-amount" :style="{ fontSize: decimalAmountSize + 'rpx' }">{{unitAmount}}</view>
-		<view class="integer-amount" :style="{ fontSize: integerAmountSize + 'rpx' }">{{integerAmount}}</view>
-		<view class="decimal-amount" :style="{ fontSize: decimalAmountSize + 'rpx' }">{{decimalAmount}}</view>
+		<view class="unit-amount" :style="{ fontSize: unitAmountSize + 'rpx', unitFontWeight: unitFontWeight ? '600' : '400' }">{{unitAmount}}</view>
+		<view class="integer-amount" :style="{ fontSize: integerAmountSize + 'rpx', fontWeight: fontWeight ? '600' : '400' }">{{integerAmount}}</view>
+		<view class="decimal-amount" :style="{ fontSize: decimalAmountSize + 'rpx', fontWeight: fontWeight ? '600' : '400' }">{{decimalAmount}}</view>
 	</view>
 </template>
 
@@ -16,6 +16,11 @@
 				type: Number,
 				required: false,
 				default: 0
+			},
+			unitAmountSize: { // 金额单位字体大小
+				type: Number,
+				required: false,
+				default: 24
 			},
 			integerAmountSize: { // 整数金额字体大小
 				type: Number,
@@ -31,6 +36,14 @@
 				type: String,
 				required: false,
 				default: '#F7283D'
+			},
+			unitFontWeight: { // 单位是否加粗
+				type: Boolean,
+				default: false
+			},
+			fontWeight: { // 是否加粗
+				type: Boolean,
+				default: true
 			}
 		},
 
@@ -66,6 +79,17 @@
 <style lang="scss">
 	.my-amount 	{
 		display: flex;
-		align-items: flex-end;
+		justify-content: center;
+		align-items: baseline;
+		.unit-amount {
+			line-height: 1;
+			margin-right: 4rpx;
+		}
+		.integer-amount {
+			line-height: 1;
+		}
+		.decimal-amount {
+			line-height: 1;
+		}
 	}
 </style>
