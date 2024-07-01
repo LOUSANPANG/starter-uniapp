@@ -1,20 +1,9 @@
 ## 安装使用
 
-### 插件市场下载
-* [插件市场](https://ext.dcloud.net.cn/plugin?id=7958)
-* 选取对应 Vue 版本文件夹。
-	+ `uniapp-vue2` 对应 Vue2 版本
-	+ `uniapp-vue3` 对应 Vue3 版本
-
-### 命令下载
-```
-yarn add @vue/cli global
-
-vue create -p dcloudio/uni-preset-vue my-project
-
-选择自定义模版
-LOUSANPANG/fe-uniapp/uniapp-vue2
-```
+### 版本
+	- main 主分支
+	- cli-vue2 通过vue-cli创建的vue2模版
+	- hbuilder-vue2 通过HBuilderX创建的vue2模版
 
 
 ## 一、基于 `uni-ui` 模版的二次封装
