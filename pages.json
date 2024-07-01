@@ -1,0 +1,73 @@
+{
+	"easycom": {
+		"^my-(.*)": "@/components/my-$1/my-$1.vue",
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+
+
+	// 全局样式
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#F8F8F8"
+	},
+
+	// tabBar
+	"tabBar": {
+		"color": "#666666",
+		"selectedColor": "#333333",
+		"backgroundColor": "#FFFFFF",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tabbar/icon_index.png",
+				"selectedIconPath": "static/tabbar/icon_index_HL.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "/static/system/tabbar_my.png",
+				"selectedIconPath": "/static/system/tabbar_my_HL.png"
+			}
+		]
+	},
+
+
+	// 页面
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"name": "index",
+			"style": {
+				"navigationStyle": "custom"
+				// "navigationBarTitleText": "我的",
+				// "navigationBarBackgroundColor": "#F5F5FB"
+			}
+		}
+	],
+
+
+	// 分包
+	"subPackages": [
+		{
+			"root": "pagesChild",
+			"pages": [
+				{
+					"path": "login/login",
+					"style": {
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		}
+	],
+
+	// 分包预下载
+	"preloadRule": {
+		"pages/index/index": {
+			"network": "all",
+			"packages": ["pagesChild"]
+		}
+	}
+
+}

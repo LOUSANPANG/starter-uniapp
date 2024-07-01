@@ -1,0 +1,13 @@
+/* 各平台兼容性css */
+
+/* H5、APP 解决多端高度定位问题 */
+// 100vh 包含导航栏和tabBar高度
+/* #ifdef H5 || APP-PLUS */
+@mixin h5BarBottom {
+	bottom: var(--window-bottom)
+}
+@mixin h5BarTop {
+	top: var(--window-top)
+}
+/* #endif */
+
