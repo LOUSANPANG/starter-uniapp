@@ -1,0 +1,136 @@
+// 全局变量文件会增加项目体积，但是可以减少代码量，提高代码的可维护性，考虑-
+
+
+// Layout
+.box-border { box-sizing: border-box; }
+.block { display: block; }
+.overflow-scroll { overflow: scroll; }
+.overflow-x-scroll { overflow-x: scroll; }
+.overflow-y-scroll { overflow-y: scroll; }
+
+// position
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+// flex
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-1 { flex: 1 1 0%; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+.justify-stretch { justify-content: stretch; }
+.justify-items-start { justify-items: start; }
+.justify-items-end { justify-items: end; }
+.justify-items-center { justify-items: center; }
+.justify-items-stretch { justify-items: stretch; }
+.content-center	{ align-content: center; }
+.content-start	{ align-content: flex-start; }
+.content-end	{ align-content: flex-end; }
+.content-between	{ align-content: space-between; }
+.content-around	{ align-content: space-around; }
+.content-evenly	{ align-content: space-evenly; }
+.content-baseline	{ align-content: baseline; }
+.content-stretch { align-content: stretch; }
+.items-start	{ align-items: flex-start; }
+.items-end	{ align-items: flex-end; }
+.items-center	{ align-items: center; }
+.items-baseline	{ align-items: baseline; }
+.items-stretch	{ align-items: stretch; }
+
+// width height
+.w-full {	width: 100%; }
+.w-screen {	width: 100vw; }
+.w-min {	width: min-content; }
+.w-max {	width: max-content; }
+.w-fit {	width: fit-content; }
+.min-w-full {	min-width: 100%; }
+.min-w-min {	min-width: min-content; }
+.min-w-max {	min-width: max-content; }
+.min-w-fit {	min-width: fit-content; }
+.max-w-full {	max-width: 100%; }
+.max-w-min {	max-width: min-content; }
+.max-w-max {	max-width: max-content; }
+.max-w-fit {	max-width: fit-content; }
+.h-full {	height: 100%; }
+.h-screen {	height: 100vh; }
+.h-min {	height: min-content; }
+.h-max {	height: max-content; }
+.h-fit {	height: fit-content; }
+.min-h-full {	min-height: 100%; }
+.min-h-screen {	min-height: 100vh; }
+.min-h-min {	min-height: min-content; }
+.min-h-max {	min-height: max-content; }
+.min-h-fit {	min-height: fit-content; }
+.max-h-full {	max-height: 100%; }
+.max-h-screen {	max-height: 100vh; }
+.max-h-min {	max-height: min-content; }
+.max-h-max {	max-height: max-content; }
+.max-h-fit {	max-height: fit-content; }
+.size-full { width: 100%; height: 100%; }
+
+// font
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+.line-through { text-decoration-line: line-through; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+// animation
+.animate-spin {
+  animation: spin 1s linear infinite;
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
+  }
+}
+.animate-bounce {
+  animation: bounce 1s infinite;
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}

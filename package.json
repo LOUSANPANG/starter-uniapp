@@ -1,152 +1,231 @@
 {
-	"uni-app": {
-		"scripts": {
-
-			"mp-dev": {
-				"title": "MP本地开发",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "http://xx.xx.xx.XX:8090",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"MP-DEV": true
-				}
-			},
-			
-			"mp-test": {
-				"title": "MP测试环境",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"MP-TEST": true
-				}
-			},
-			
-			"mp-beta": {
-				"title": "MP BETA",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"MP-BETA": true
-				}
-			},
-			
-			"mp-stage": {
-				"title": "MP验收环境",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"MP-STAGE": true
-				}
-			},
-			
-			"mp-release": {
-				"title": "MP正式环境",
-				"env": {
-					"UNI_PLATFORM": "mp-weixin",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"MP-RELEASE": true
-				}
-			},
-
-			"h5-dev": {
-				"title": "H5本地开发",
-				"BROWSER": "chorme",
-				"env": {
-					"UNI_PLATFORM": "h5",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"H5-DEV": true
-				}
-			},
-			
-			"h5-test": {
-				"title": "H5测试环境",
-				"BROWSER": "chorme",
-				"env": {
-					"UNI_PLATFORM": "h5",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"H5-TEST": true
-				}
-			},
-			
-			"h5-beta": {
-				"title": "H5 BETA",
-				"BROWSER": "chorme",
-				"env": {
-					"UNI_PLATFORM": "h5",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"H5-BETA": true
-				}
-			},
-			
-			"h5-stage": {
-				"title": "H5验收环境",
-				"BROWSER": "chorme",
-				"env": {
-					"UNI_PLATFORM": "h5",
-					"HOST": "",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"H5-STAGE": true
-				}
-			},
-			
-			"h5-release": {
-				"title": "H5正式环境",
-				"BROWSER": "chorme",
-				"env": {
-					"UNI_PLATFORM": "h5",
-					"FSF_URL": "",
-					"ICON_URL": "",
-					"VERSION": "1.0"
-				},
-				"define": {
-					"H5-RELEASE": true
-				}
-			}
-
-		}
-	}
-
+  "name": "starter-uniapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "update": "npx @dcloudio/uvm@latest",
+    "dev:custom": "cross-env NODE_ENV=development uniapp-cli custom",
+    "dev:wx-beta": "yarn dev:custom wx-beta",
+    "dev:wx-test": "yarn dev:custom wx-test",
+    "dev:wx-stage": "yarn dev:custom wx-stage",
+    "dev:wx-prod": "yarn dev:custom wx-prod",
+    "dev:alipay-beta": "yarn dev:custom alipay-beta",
+    "dev:alipay-test": "yarn dev:custom alipay-test",
+    "dev:alipay-stage": "yarn dev:custom alipay-stage",
+    "dev:alipay-prod": "yarn dev:custom alipay-prod",
+    "dev:h5-beta": "yarn dev:custom h5-beta",
+    "dev:h5-test": "yarn dev:custom h5-test",
+    "dev:h5-stage": "yarn dev:custom h5-stage",
+    "dev:h5-prod": "yarn dev:custom h5-prod",
+    "build:custom": "cross-env NODE_ENV=production uniapp-cli custom",
+    "build:wx-beta": "yarn build:custom wx-beta",
+    "build:wx-test": "yarn build:custom wx-test",
+    "build:wx-stage": "yarn build:custom wx-stage",
+    "build:wx-prod": "yarn build:custom wx-prod",
+    "build:alipay-beta": "yarn build:custom alipay-beta",
+    "build:alipay-test": "yarn build:custom alipay-test",
+    "build:alipay-stage": "yarn build:custom alipay-stage",
+    "build:alipay-prod": "yarn build:custom alipay-prod",
+    "build:h5-beta": "yarn build:custom h5-beta",
+    "build:h5-test": "yarn build:custom h5-test",
+    "build:h5-stage": "yarn build:custom h5-stage",
+    "build:h5-prod": "yarn build:custom h5-prod"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-app-plus": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-h5": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-i18n": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-mp-alipay": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-mp-vue": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-mp-weixin": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-stacktracey": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-stat": "^2.0.2-4010520240507001",
+    "@vue/shared": "^3.0.0",
+    "core-js": "^3.8.3",
+    "flyio": "^0.6.2",
+    "vue": ">= 2.6.14 < 2.7"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^3.3.2",
+    "@dcloudio/uni-automator": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-cli-i18n": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-cli-shared": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-helper-json": "*",
+    "@dcloudio/uni-migration": "^2.0.2-4010520240507001",
+    "@dcloudio/uni-template-compiler": "^2.0.2-4010520240507001",
+    "@dcloudio/vue-cli-plugin-hbuilderx": "^2.0.2-4010520240507001",
+    "@dcloudio/vue-cli-plugin-uni": "^2.0.2-4010520240507001",
+    "@dcloudio/vue-cli-plugin-uni-optimize": "^2.0.2-4010520240507001",
+    "@dcloudio/webpack-uni-mp-loader": "^2.0.2-4010520240507001",
+    "@dcloudio/webpack-uni-pages-loader": "^2.0.2-4010520240507001",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "babel-plugin-import": "^1.11.0",
+    "cross-env": "^7.0.2",
+    "postcss-comment": "^2.0.0",
+    "sass": "^1.77.6",
+    "sass-loader": "^14.2.1",
+    "vue-template-compiler": ">= 2.6.14 < 2.7"
+  },
+  "browserslist": [
+    "Android >= 4.4",
+    "ios >= 9"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "uni-app": {
+    "scripts": {
+      "wx-beta": {
+        "title": "wx beta",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-BETA": true
+        }
+      },
+      "wx-test": {
+        "title": "wx test",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-TEST": true
+        }
+      },
+      "wx-stage": {
+        "title": "wx stage",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-STAGE": true
+        }
+      },
+      "wx-prod": {
+        "title": "wx prod",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-PROD": true
+        }
+      },
+      "alipay-beta": {
+        "title": "alipay beta",
+        "env": {
+          "UNI_PLATFORM": "mp-alipay",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-BETA": true
+        }
+      },
+      "alipay-test": {
+        "title": "alipay test",
+        "env": {
+          "UNI_PLATFORM": "mp-alipay",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-TEST": true
+        }
+      },
+      "alipay-stage": {
+        "title": "alipay stage",
+        "env": {
+          "UNI_PLATFORM": "mp-alipay",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-STAGE": true
+        }
+      },
+      "alipay-prod": {
+        "title": "alipay prod",
+        "env": {
+          "UNI_PLATFORM": "mp-alipay",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "MP-PROD": true
+        }
+      },
+      "h5-beta": {
+        "title": "h5 beta",
+        "browser": "chrome",
+        "env": {
+          "UNI_PLATFORM": "h5",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "H5-BETA": true
+        }
+      },
+      "h5-test": {
+        "title": "h5 test",
+        "browser": "chrome",
+        "env": {
+          "UNI_PLATFORM": "h5",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "H5-TEST": true
+        }
+      },
+      "h5-stage": {
+        "title": "h5 stage",
+        "browser": "chrome",
+        "env": {
+          "UNI_PLATFORM": "h5",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "H5-STAGE": true
+        }
+      },
+      "h5-prod": {
+        "title": "h5 prod",
+        "browser": "chrome",
+        "env": {
+          "UNI_PLATFORM": "h5",
+          "HOST": "",
+          "FSF_URL": "",
+          "ICON_URL": ""
+        },
+        "define": {
+          "H5-PROD": true
+        }
+      }
+    }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
