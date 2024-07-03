@@ -1,16 +1,17 @@
-<template>
-	<view class="index"></view>
-</template>
-
 <script>
-	export default {
-		name: 'Index',
+export default {
+  name: 'Index',
 
-		data() {
-			return {}
-		}
-	}
+  data() {
+    return {}
+  },
+}
 </script>
 
+<template>
+  <view class="index" />
+</template>
+
 <style scoped lang="scss">
+
 </style>
