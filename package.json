@@ -2,8 +2,15 @@
   "name": "starter-uniapp",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "update": "npx @dcloudio/uvm@latest",
+    "prepare": "simple-git-hooks",
     "dev:custom": "cross-env NODE_ENV=development uniapp-cli custom",
     "dev:wx-beta": "yarn dev:custom wx-beta",
     "dev:wx-test": "yarn dev:custom wx-test",
@@ -47,6 +54,7 @@
     "vue": ">= 2.6.14 < 2.7"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.21.2",
     "@dcloudio/types": "^3.3.2",
     "@dcloudio/uni-automator": "^2.0.2-4010520240507001",
     "@dcloudio/uni-cli-i18n": "^2.0.2-4010520240507001",
@@ -63,18 +71,24 @@
     "@vue/cli-service": "~5.0.0",
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^7.0.2",
+    "eslint": "^9.6.0",
+    "lint-staged": "^15.2.7",
     "postcss-comment": "^2.0.0",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1",
+    "simple-git-hooks": "^2.11.1",
     "vue-template-compiler": ">= 2.6.14 < 2.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "yarn lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   },
   "browserslist": [
     "Android >= 4.4",
     "ios >= 9"
   ],
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "uni-app": {
     "scripts": {
       "wx-beta": {
@@ -226,6 +240,5 @@
         }
       }
     }
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }
