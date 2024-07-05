@@ -2,9 +2,17 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
+    vue: {
+      vueVersion: 2,
+    },
     ignores: [
+      'docker',
+      'docs',
+      'public',
       'src/uni_modules',
+      'src/hybrid',
       'src/js_sdk',
+      'src/nativeplugins',
       'src/static',
     ],
   },
@@ -22,6 +30,7 @@ export default antfu(
         Component: true,
         Behavior: true,
         wxs: true,
+        worker: true,
         requirePlugin: true,
         require: true,
         define: true,
