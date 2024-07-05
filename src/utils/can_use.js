@@ -10,7 +10,7 @@
  * @param {string} ${attribute}代表组件属性
  * @param {string} ${option}代表组件属性的可选值
  */
-export const canIUse = (param) => {
-	const _CANIUSE = uni.canIUse(param)
-	return _CANIUSE
+export function canIUse(param) {
+  const _CANIUSE = uni.canIUse(param)
+  return _CANIUSE
 }

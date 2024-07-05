@@ -11,27 +11,27 @@
 ### 在 pages.json 对应页面的 style -> usingComponents 引入组件：
 ```json
 {
-    "pages": [{
-        "path": "index/index",
-        "style": {
-            // #ifdef APP-PLUS || H5 || MP-WEIXIN || MP-QQ
-            "usingComponents": {
-                "custom": "/wxcomponents/custom/index"
-            },
-            // #endif
-            // #ifdef MP-BAIDU
-            "usingComponents": {
-                "custom": "/swancomponents/custom/index"
-            },
-            // #endif
-            // #ifdef MP-ALIPAY
-            "usingComponents": {
-                "custom": "/mycomponents/custom/index"
-            },
-            // #endif
-            "navigationBarTitleText": "uni-app"
-        }
-    }]
+  "pages": [{
+    "path": "index/index",
+    "style": {
+      // #ifdef APP-PLUS || H5 || MP-WEIXIN || MP-QQ
+      "usingComponents": {
+        "custom": "/wxcomponents/custom/index"
+      },
+      // #endif
+      // #ifdef MP-BAIDU
+      "usingComponents": {
+        "custom": "/swancomponents/custom/index"
+      },
+      // #endif
+      // #ifdef MP-ALIPAY
+      "usingComponents": {
+        "custom": "/mycomponents/custom/index"
+      },
+      // #endif
+      "navigationBarTitleText": "uni-app"
+    }
+  }]
 }
 ```
 

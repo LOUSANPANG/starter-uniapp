@@ -1,36 +1,34 @@
-<template>
-	<view class="my-skeleton-screen">
-		
-		<template v-if="type == 'list'">
-			<view class="list_item" v-for="item in 6" :key="item"></view>
-		</template>
-		
-		<template v-if="type == 'paragraph'">
-			<view class="paragraph" v-for="val in 3" :key="val">
-				<view class="paragraph_tip"></view>
-				<view class="paragraph_item" v-for="item in 3" :key="item"></view>
-			</view>
-		</template>
-		
-	</view>
-</template>
-
 <script>
-	/**
-	 * SkeletonScreen 骨架屏
-	 * @description 预加载数据时loading效果
-	 * @property {Boolean} num 骨架屏的展示数量
-	 */
-	export default {
-		name: 'MySkeletonScreen',
-		props: {
-			type: {
-				type: String,
-				default: 'list', // list paragraph
-			}
-		}
-	}
+/**
+ * SkeletonScreen 骨架屏
+ * @description 预加载数据时loading效果
+ * @property {boolean} num 骨架屏的展示数量
+ */
+export default {
+  name: 'MySkeletonScreen',
+  props: {
+    type: {
+      type: String,
+      default: 'list', // list paragraph
+    },
+  },
+}
 </script>
+
+<template>
+  <view class="my-skeleton-screen">
+    <template v-if="type === 'list'">
+      <view v-for="item in 6" :key="item" class="list_item" />
+    </template>
+
+    <template v-if="type === 'paragraph'">
+      <view v-for="val in 3" :key="val" class="paragraph">
+        <view class="paragraph_tip" />
+        <view v-for="item in 3" :key="item" class="paragraph_item" />
+      </view>
+    </template>
+  </view>
+</template>
 
 <style lang="scss" scoped>
 	@keyframes skeleton {
@@ -52,7 +50,7 @@
 			opacity: 1;
 		}
 	}
-	
+
 	@mixin animation {
 		animation: skeleton 1.8s ease infinite;
 		background: linear-gradient(90deg, #F1F2F4 25%, #e6e6e6 37%, #F1F2F4 50%);
@@ -67,7 +65,7 @@
 		border-radius: 16rpx;
 		@include animation;
 	}
-	
+
 	// 标题+列表
 	.paragraph {
 		width: 100%;

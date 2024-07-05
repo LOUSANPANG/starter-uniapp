@@ -1,71 +1,71 @@
 {
-	"easycom": {
-		"^my-(.*)": "@/components/my-$1/my-$1.vue",
-		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
-	},
+  "easycom": {
+    "^my-(.*)": "@/components/my-$1/my-$1.vue",
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  },
 
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarBackgroundColor": "#F8F8F8"
-	},
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#F8F8F8"
+  },
 
-	"tabBar": {
-		"color": "#666666",
-		"selectedColor": "#333333",
-		"backgroundColor": "#FFFFFF",
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "./static/system/tabbar_index.png",
-				"selectedIconPath": "./static/system/tabbar_index_HL.png"
-			},
-			{
-				"pagePath": "pages/my/index",
-				"text": "我的",
-				"iconPath": "./static/system/tabbar_my.png",
-				"selectedIconPath": "./static/system/tabbar_my_HL.png"
-			}
-		]
-	},
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#333333",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./static/system/tabbar_index.png",
+        "selectedIconPath": "./static/system/tabbar_index_HL.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "./static/system/tabbar_my.png",
+        "selectedIconPath": "./static/system/tabbar_my_HL.png"
+      }
+    ]
+  },
 
-	"pages": [
-		{
-			"path": "pages/index/index",
-			"name": "index",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/my/index",
-			"name": "my",
-			"style": {
-				"navigationBarTitleText": "我的",
-				"navigationBarBackgroundColor": "#F5F5FB"
-			}
-		}
-	],
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "name": "index",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/index",
+      "name": "my",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationBarBackgroundColor": "#F5F5FB"
+      }
+    }
+  ],
 
-	"subPackages": [
-		{
-			"root": "pagesChild",
-			"pages": [
-				{
-					"path": "login/login",
-					"style": {
-						"navigationStyle": "custom"
-					}
-				}
-			]
-		}
-	],
+  "subPackages": [
+    {
+      "root": "pagesChild",
+      "pages": [
+        {
+          "path": "login/login",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    }
+  ],
 
-	"preloadRule": {
-		"pages/index/index": {
-			"network": "all",
-			"packages": ["pagesChild"]
-		}
-	}
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["pagesChild"]
+    }
+  }
 
 }

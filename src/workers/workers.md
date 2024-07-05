@@ -24,7 +24,6 @@ worker.postMessage({
 })
 ```
 
-
 ### 注意事项
 - Worker 最大并发数量限制为 1 个，创建下一个前请用 Worker.terminate() 结束当前 Worker
 - Worker 内代码只能 require 指定 Worker 路径内的文件，无法引用其它路径
@@ -33,4 +32,3 @@ worker.postMessage({
 - Workers 之间不支持发送消息
 - Worker 目录内只支持放置 JS 文件，其他类型的静态文件需要放在 Worker 目录外
 - 基础库 v2.18.1 开始支持在插件内使用 worker。相应地，插件使用worker前需要在plugin.json内配置workers代码路径，即一个相对插件代码包根目录的路径。
-

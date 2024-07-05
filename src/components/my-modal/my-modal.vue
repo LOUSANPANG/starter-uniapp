@@ -1,3 +1,49 @@
+<script>
+/**
+ * @description: 校验密码弹窗的模态框
+ * @param {string} title 标题
+ * @param {string} describe 描述
+ * @param {string} confirm 确认按钮文字
+ * @param {string} cancel 取消按钮文字
+ * @event {Function} modalConfirm 点击确认按钮时触发
+ * @event {Function} modalCancel 点击取消按钮时触发
+ */
+export default {
+  data() {
+    return {
+      show: false,
+      title: '',
+      describe: '',
+      confirm: '',
+      cancel: '',
+    }
+  },
+
+  methods: {
+    // 打开弹窗
+    open(data) {
+      this.show = true
+      this.title = data.title
+      this.describe = data.describe
+      this.confirm = data.confirm
+      this.cancel = data.cancel
+    },
+
+    // 取消按钮
+    handleClose() {
+      this.show = false
+      this.$emit('modalCancel', this.cancel)
+    },
+
+    // 确认按钮
+    handleConfirm() {
+      this.show = false
+      this.$emit('modalConfirm', this.confirm)
+    },
+  },
+}
+</script>
+
 <template>
   <view v-if="show" class="flex flex-row-center verify-modal">
     <view
@@ -9,11 +55,14 @@
         v-if="title"
         class="modal_title"
         :style="{ marginBottom: describe ? '16rpx' : '60rpx' }"
-        >{{ title }}</view
       >
+        {{ title }}
+      </view>
 
       <!-- 描述 -->
-      <view v-if="describe" class="modal_describe">{{ describe }}</view>
+      <view v-if="describe" class="modal_describe">
+        {{ describe }}
+      </view>
 
       <!-- 按钮 -->
       <view class="flex modal_button">
@@ -21,66 +70,20 @@
           v-if="cancel"
           class="flex flex-row-center button-cancel"
           @click="handleClose"
-          >{{ cancel }}</view
         >
+          {{ cancel }}
+        </view>
         <view
           v-if="confirm"
           class="flex flex-row-center button-confirm"
           @click="handleConfirm"
-          >{{ confirm }}</view
         >
+          {{ confirm }}
+        </view>
       </view>
     </view>
   </view>
 </template>
-
-
-<script>
-/**
- * @description: 校验密码弹窗的模态框
- * @param {String} title 标题
- * @param {String} describe 描述
- * @param {String} confirm 确认按钮文字
- * @param {String} cancel 取消按钮文字
- * @event {Function} modalConfirm 点击确认按钮时触发
- * @event {Function} modalCancel 点击取消按钮时触发
- */
-export default {
-  data() {
-    return {
-      show: false,
-      title: "",
-      describe: "",
-      confirm: "",
-      cancel: "",
-    };
-  },
-
-  methods: {
-    // 打开弹窗
-    open(data) {
-      this.show = true;
-      this.title = data.title;
-      this.describe = data.describe;
-      this.confirm = data.confirm;
-      this.cancel = data.cancel;
-    },
-
-    // 取消按钮
-    handleClose() {
-      this.show = false;
-      this.$emit("modalCancel", this.cancel);
-    },
-
-    // 确认按钮
-    handleConfirm() {
-      this.show = false;
-      this.$emit("modalConfirm", this.confirm);
-    },
-  },
-};
-</script>
-
 
 <style scoped lang="scss">
 .flex {

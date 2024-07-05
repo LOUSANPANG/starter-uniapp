@@ -9,12 +9,13 @@ import customShowToast from './custom_toast.js'
  * @returns {object} res
  * @returns {object.platform} res.platform 客户端环境
  */
-export const systemInfo = () => {
-	try {
-		const res = uni.getSystemInfoSync()
-		return res
-	} catch (e) {
-		console.error(e)
-		customShowToast('获取系统信息失败')
-	}
+export function systemInfo() {
+  try {
+    const res = uni.getSystemInfoSync()
+    return res
+  }
+  catch (e) {
+    console.error(e)
+    customShowToast('获取系统信息失败')
+  }
 }

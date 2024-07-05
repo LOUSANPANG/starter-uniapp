@@ -2,7 +2,6 @@
 ### 需要去微信工具里开启es6转换。
 ### 可以使用wxs
 
-
 ### 使用方式
 ```json
 - wxcomponents
@@ -41,7 +40,6 @@
     <custom name="uni-app"></custom>
 </view>
 ```
-
 
 ## 支付宝小程序 mycomponents
 ## 百度小程序 swancomponents

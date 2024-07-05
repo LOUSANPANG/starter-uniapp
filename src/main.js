@@ -9,7 +9,6 @@ import { systemInfo } from './utils/is_systeminfo.js'
 import './utils/lib_uview.js'
 import './router.js'
 
-
 Vue.use(uView)
 Vue.config.productionTip = false
 Vue.prototype.$TOAST = customShowToast
@@ -18,10 +17,9 @@ Vue.prototype.$INFO = systemInfo
 Vue.prototype.$FSfURL = process.env.FSF_URL // 服务返回图片路径
 Vue.prototype.$ICON = process.env.ICON_URL // 静态资源路径
 
-
 App.mpType = 'app'
 const app = new Vue({
   // store,
-  ...App
+  ...App,
 })
 app.$mount()

@@ -14,7 +14,7 @@ methods: {
     mutTest: 'Test/mutTest'
   }),
 	...mapActions([
-		actTest: 'Test/actTest', 
+		actTest: 'Test/actTest',
 	])
 }
 // this.staTest 取值

@@ -14,61 +14,63 @@
  * b 无法通过wx.getUserInfo接口获取用户个人信息 将直接获取匿名数据
  * c 新增getUserProfile接口可获取用户信息 均需用户确认
  */
+import { toLogin } from './tologin'
 import customShowToast from '@/utils/custom_toast.js'
 import Storage from '@/utils/custom_storage.js'
 import customLogin from '@/utils/custom_login.js'
-import { toLogin } from './tologin'
 
+async function silentLogin(complete) {
+  const loginRes = await customLogin()
 
-const silentLogin = async (complete) => {
-	const loginRes = await customLogin()
+  if (!loginRes) {
+    console.info('uni.login失败❌: ', loginErr)
+    customShowToast('uni.login error')
+    return null
+    // return Promise.reject(loginErr)
+  }
+  else {
+    console.info('uni.login成功✅: ', loginRes)
+    // 重新调用登录接口
+    const [requestErr, requestRes] = await uni.request({
+      url: `${process.env.HOST}/userLoginByCode`,
+      method: 'POST',
+      data: {
+        code: loginRes.code,
+        phone: '153xxxx0730',
+      },
+    })
 
-	if (!loginRes) {
-		console.info('uni.login失败❌: ', loginErr)
-		customShowToast('uni.login error')
-		return null
-		// return Promise.reject(loginErr)
-	} else {
-		console.info('uni.login成功✅: ', loginRes)
-		// 重新调用登录接口
-		const [requestErr, requestRes] = await uni.request({
-			url: process.env.HOST + '/userLoginByCode',
-			method: 'POST',
-			data: {
-				code: loginRes.code,
-				phone: '153xxxx0730'
-			}
-		})
+    if (requestErr) {
+      console.info('登录接口失败❌: ', requestErr)
+      customShowToast('静默登录请求失败')
+      return null
+      // return Promise.reject(requestErr)
+    }
+    else {
+      console.info('登录接口成功✅: ', requestRes)
+      if (requestRes.statusCode === 200 && requestRes.data.code === '00') {
+        const data = requestRes.data.data
+        Storage.setToken(data.token)
+        Storage.setKey(data.key)
+        Storage.setUser(data)
 
-		if (requestErr) {
-			console.info('登录接口失败❌: ', requestErr)
-			customShowToast('静默登录请求失败')
-			return null
-			// return Promise.reject(requestErr)
-		} else {
-			console.info('登录接口成功✅: ', requestRes)
-			if (requestRes.statusCode === 200 && requestRes.data.code === '00') {
-				const data = requestRes.data.data
-				Storage.setToken(data.token)
-				Storage.setKey(data.key)
-				Storage.setUser(data)
-
-				// 回调执行token失效的服务
-				complete()
-			} else {
-				Storage.clearAll()
-				uni.showModal({
-					title: "提示",
-					content: "登录信息已过期，请重新登录",
-					confirmText: "前往登录",
-					showCancel: false,
-					success(res) {
-						toLogin()
-					}
-				})
-			}
-		}
-	}
+        // 回调执行token失效的服务
+        complete()
+      }
+      else {
+        Storage.clearAll()
+        uni.showModal({
+          title: '提示',
+          content: '登录信息已过期，请重新登录',
+          confirmText: '前往登录',
+          showCancel: false,
+          success(res) {
+            toLogin()
+          },
+        })
+      }
+    }
+  }
 }
 
 export default silentLogin

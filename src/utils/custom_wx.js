@@ -4,30 +4,40 @@ import customShowToast from './custom_toast.js'
 import { parseHistoryUrl, removeUrlParams } from './parse_url.js'
 import Storage from '@/utils/custom_storage.js'
 
+/**
+ * 配置微信api
+ * 调用服务获取签名参数
+ * 调用wx.config
+ * 调用wx.ready
+ * 使用权限API
+ * @param {object} data login服务返回的数据
+ * @param {Array} jsApiList api参数
+ */
+import wx from '@/js_sdk/jweixin-1.6.0.js'
 
 /**
  * 是否是微信环境
  */
-export const isWxClient = () => {
-	const UA = window.navigator.userAgent.toLowerCase()
-	if (UA.match(/MicroMessenger/i) != 'micromessenger') {
-		uni.redirectTo({
-			url: '/pages/404/404'
-		})
-		return true
-	}
+export function isWxClient() {
+  const UA = window.navigator.userAgent.toLowerCase()
+  if (UA.match(/MicroMessenger/i) !== 'micromessenger') {
+    uni.redirectTo({
+      url: '/pages/404/404',
+    })
+    return true
+  }
 }
 
 /**
  * 获取微信授权回调code
  */
-export const getWxCode = (url) => {
-	const appid = process.env.APPID
-	const scope = 'snsapi_userinfo'
-	let local = url ? url : window.location.href
-	local = encodeURIComponent(decodeURIComponent(local))
-	location.href =
-		`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${local}&response_type=code&scope=${scope}&state=STATE#wechat_redirect`
+export function getWxCode(url) {
+  const appid = process.env.APPID
+  const scope = 'snsapi_userinfo'
+  let local = url || window.location.href
+  local = encodeURIComponent(decodeURIComponent(local))
+  location.href
+    = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${local}&response_type=code&scope=${scope}&state=STATE#wechat_redirect`
 }
 
 /**
@@ -45,81 +55,75 @@ export const getWxCode = (url) => {
  *
  * @return {boolean}
  */
-export const authorizedLogin = async () => {
-	// HACK 删除缓存但是code还存在 login服务就会报500
-	if (!Storage.getToken()) {
-		const loginCode = parseHistoryUrl('code')
-		if (loginCode) {
-			const loginData = await postLogin({ loginCode })
-			// 登录失败后的处理
-			if (!loginData) {
-				const newUrl = removeUrlParams('code')
-				getWxCode(newUrl)
-				return false
-			} else {
-				Storage.setToken(loginData.result)
-				return await isFollowGzh()
-			}
-		} else {
-			getWxCode()
-			return false
-		}
-	} else {
-		return await isFollowGzh()
-	}
+export async function authorizedLogin() {
+  // HACK 删除缓存但是code还存在 login服务就会报500
+  if (!Storage.getToken()) {
+    const loginCode = parseHistoryUrl('code')
+    if (loginCode) {
+      const loginData = await postLogin({ loginCode })
+      // 登录失败后的处理
+      if (!loginData) {
+        const newUrl = removeUrlParams('code')
+        getWxCode(newUrl)
+        return false
+      }
+      else {
+        Storage.setToken(loginData.result)
+        return await isFollowGzh()
+      }
+    }
+    else {
+      getWxCode()
+      return false
+    }
+  }
+  else {
+    return await isFollowGzh()
+  }
 }
-
-/**
- * 配置微信api
- * 调用服务获取签名参数
- * 调用wx.config
- * 调用wx.ready
- * 使用权限API
- * @param {object} data login服务返回的数据
- * @param {array} jsApiList api参数
- */
-import wx from '@/js_sdk/jweixin-1.6.0.js'
-export const configWxApi = async (url, jsApiList, fn) => {
-	return new Promise(async (resolve, reject) => {
-		// 调用config服务
-		const wxConfigData = await getWxConfig(url)
-		if (wxConfigData) {
-			const { timestamp, nonceStr, signature } = wxConfigData.result
-			wx.config({
-				// debug: true,
-				appId: process.env.APPID,
-				timestamp, // 签名的时间戳
-				nonceStr, // 签名的随机串
-				signature, // 签名
-				jsApiList // JS接口列表
-			})
-			wx.ready(fn)
-		} else {
-			reject()
-		}
-		wx.error((res) => {
-			reject()
-			customShowToast(`配置验证失败: ${res}`)
-		})
-	})
+export async function configWxApi(url, jsApiList, fn) {
+  return new Promise(async (resolve, reject) => {
+    // 调用config服务
+    const wxConfigData = await getWxConfig(url)
+    if (wxConfigData) {
+      const { timestamp, nonceStr, signature } = wxConfigData.result
+      wx.config({
+        // debug: true,
+        appId: process.env.APPID,
+        timestamp, // 签名的时间戳
+        nonceStr, // 签名的随机串
+        signature, // 签名
+        jsApiList, // JS接口列表
+      })
+      wx.ready(fn)
+    }
+    else {
+      reject()
+    }
+    wx.error((res) => {
+      reject()
+      customShowToast(`配置验证失败: ${res}`)
+    })
+  })
 }
 
 /**
  * 是否关注公众号
  * @return {boolean} true 关注 false 未关注
  */
-export const isFollowGzh = async () => {
-	let isReturn = true
-	if (!Storage.getGzhFollow()) {
-		const { result: isFollow } = await postSubscribeInfo()
-		if (isFollow !== '1') {
-			isReturn = false
-			uni.navigateTo({
-				url: '/pages/follow/follow'
-			})
-		} else {
-			Storage.stGzhFollow(true)
-		}
-	}
-	return isReturn
+export async function isFollowGzh() {
+  let isReturn = true
+  if (!Storage.getGzhFollow()) {
+    const { result: isFollow } = await postSubscribeInfo()
+    if (isFollow !== '1') {
+      isReturn = false
+      uni.navigateTo({
+        url: '/pages/follow/follow',
+      })
+    }
+    else {
+      Storage.stGzhFollow(true)
+    }
+  }
+  return isReturn
 }
