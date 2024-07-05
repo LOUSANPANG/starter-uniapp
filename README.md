@@ -52,7 +52,7 @@
   │   ├── uni_modules # 请求库、ui库
   │   ├── utils # 工具
   │   ├── utssdk # 存放uts文件
-  │   ├── workers # webworker 
+  │   ├── workers # webworker
   │   ├── wxcomponents # 微信小程序组件
   │   ├── router.js # 自定义路由
   │   ├── App.vue
